@@ -119,6 +119,11 @@ app.use((req,res,next) => {
 //     res.send("Successful testing");
 // });
 
+// Home route
+app.get("/", (req, res) => {
+    res.redirect("/Listings");
+});
+
 
 //Express Routes
 app.use("/Listings",listingRouter);
