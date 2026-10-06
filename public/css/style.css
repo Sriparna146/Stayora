@@ -14,7 +14,8 @@ body {
 
 
 .navbar {
-    height: 50px;
+    min-height: 4rem;
+     height: auto;
     background-color: white;
 }
 
