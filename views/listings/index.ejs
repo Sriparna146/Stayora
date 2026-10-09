@@ -170,16 +170,25 @@
                             <div class="card col listing-card">
                                 <img src="<%= listings.image.url %>" class="card-img-top" alt="listing image"
                                     style="height: 20rem;">
-                                <div class="card-img-overlay">abcd</div>
+                                <div class="card-img-overlay">
+                                    <span class="location-badge">
+                                        <i class="fa-solid fa-location-dot"></i> <%= listings.location %>
+                                    </span>
+                                </div>
 
                                 <div class="card-body">
                                     <p class="card-text">
-                                        <b>
-                                            <%= listings.title %>
-                                        </b>
-                                        <br>
-                                        &#x20B9; <%= listings.price.toLocaleString("en-IN") %>/night
-                                            <i class="tax-info">&nbsp; &nbsp; +18% GST</i>
+                                        <b><%= listings.title %></b><br>
+                                        
+                                        
+                                        <span class="base-price">
+                                            &#x20B9; <%= listings.price.toLocaleString("en-IN") %> /night
+                                        </span>
+
+                                        <span class="total-price" style="display: none;">
+                                            &#x20B9; <%= (Math.round(listings.price * 1.18)).toLocaleString("en-IN") %> /night
+                                            <small class="text-muted">(&#x20B9;<%= listings.price.toLocaleString("en-IN") %> + 18% GST)</small>
+                                        </span>
                                     </p>
                                 </div>
                             </div>
@@ -200,15 +209,19 @@
 
                 <script>
                     let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-                    taxSwitch.addEventListener("click", () => {
-                        let taxInfo = document.getElementsByClassName("tax-info");
-                        for (info of taxInfo) {
-                            if (info.style.display != "inline") {
-                                info.style.display = "inline";
-                            } else {
-                                info.style.display = "none";
-                            }
 
+                    taxSwitch.addEventListener("click", () => {
+                        let basePrices = document.getElementsByClassName("base-price");
+                        let totalPrices = document.getElementsByClassName("total-price");
+
+                        for (let i = 0; i < basePrices.length; i++) {
+                            if (taxSwitch.checked) {
+                                basePrices[i].style.display = "none";
+                                totalPrices[i].style.display = "inline";
+                            } else {
+                                basePrices[i].style.display = "inline";
+                                totalPrices[i].style.display = "none";
+                            }
                         }
                     });
                 </script>
